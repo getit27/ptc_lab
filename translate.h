@@ -2,6 +2,7 @@
 #include"linkedlist.h"
 #include"semantic.h"
 #include"stdlib.h"
+#include"stdio.h"
 
 typedef struct IdVariable{
     struct var_*variable;
@@ -55,5 +56,7 @@ int shiftStruct(struct str_*stru,char*name);
 int spaceStruct(struct var_*var);
 
 int spaceArray(struct var_*var);
+
+void printInterCode(FILE*fo);
 
 char* itoa(int num,char* str,int radix);

@@ -5,6 +5,7 @@
 #include<stdio.h>
 #define NEW(a) (a*)myMalloc(sizeof(a))
 
+Sentence*interCode;
 int varid=0;
 LinkedList*structTable;
 int strNum;
@@ -52,7 +53,7 @@ void sematicAnalysis(struct TreeNode*root){
     //Analyse
     if(root->type==0){
         sematicGeneExtDefList(root->subnode[0],0);
-        printCode(translateProgram(root));
+        printCode(interCode=translateProgram(root));
     }else{
         printf("Error: invalid type");
         exit(1);

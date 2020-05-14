@@ -5,6 +5,7 @@
 extern LinkedList*translateTable;
 extern LinkedList*functionTable;
 extern LinkedList*structTable;
+extern Sentence*interCode;
 int tnum=0;
 int lnum=0;
 
@@ -647,6 +648,13 @@ int spaceArray(Variable*var){
     else{
         printf("Error\n");
         return 4;
+    }
+}
+
+void printInterCode(FILE*fo){
+    while(interCode){
+        fprintf(fo,"%s\n",interCode->str);
+        interCode=interCode->next;
     }
 }
 
