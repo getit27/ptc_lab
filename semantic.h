@@ -3,6 +3,8 @@
 #include"stack.h"
 #include"string.h"
 #include"linkedlist.h"
+#include"translate.h"
+
 typedef enum{INT,FLOAT,IPOINT,FPOINT}BaseType;
 typedef enum{VARIABLE,STRUCT}DataaType;
 

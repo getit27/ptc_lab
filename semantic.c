@@ -5,6 +5,7 @@
 #include<stdio.h>
 #define NEW(a) (a*)myMalloc(sizeof(a))
 
+int varid=0;
 LinkedList*structTable;
 int strNum;
 LinkedList*functionTable;
@@ -12,6 +13,7 @@ Stack*variableTables;
 int nmalloc=0;
 int nfree=0;
 LinkedListTest*mallocTable;
+LinkedList*translateTable;
 
 void sematicAnalysis(struct TreeNode*root){
     printStart(root);
@@ -20,25 +22,49 @@ void sematicAnalysis(struct TreeNode*root){
     mallocTable=createListTest();
     structTable=createList();
     functionTable=createList();
+
+    Function*funcWrite=NEW(Function);
+    funcWrite->name="write";
+    funcWrite->paraList=createList();
+    Variable*writeI=NEW(Variable);
+    writeI->name="i";
+    writeI->type=NEW(AllType);
+    writeI->type->type=INT;
+    pushList(funcWrite->paraList,writeI);
+    funcWrite->retType=NEW(AllType);
+    funcWrite->retType->type=INT;
+    Function*funcRead=NEW(Function);
+    funcRead->name="read";
+    funcRead->paraList=createList();
+    funcRead->retType=NEW(AllType);
+    funcRead->retType->type=INT;
+    pushList(functionTable,funcWrite);
+    pushList(functionTable,funcRead);
+
     variableTables=createStack();
+    translateTable=createList();
     LinkedList*newVariable=createList();
     strNum=5;
     pushStack(variableTables,newVariable);
     //Analyse
     if(root->type==0){
+        printf("FOUND!\n");
         sematicGeneExtDefList(root->subnode[0],0);
+        printf("FOUND!\n");
+        printCode(translateProgram(root));
     }else{
         printf("Error: invalid type");
         exit(1);
     }
-    printf("free struct table:\n");
+    //printf("free struct table:\n");
     destoryListPro(structTable,destoryStruct);
-    printf("free func table:\n");
+    //printf("free func table:\n");
     destoryListPro(functionTable,destoryFunc);
-    printf("free variable table\n");
+    //printf("free variable table\n");
     destoryListPro(variableTables->next->data,destoryVariable);
     destoryStack(variableTables);
-    printf("unfree:\n");
+    destoryListPro(translateTable,destoryIdVariable);
+    //printf("unfree:\n");
     printListTest(mallocTable,printAddress);
     printEnd(root);
 }
@@ -1362,6 +1388,11 @@ int addStruct2Table(Struct*str){
 void addVariable2Table(Variable*var){
     LinkedList*topVariableTable=topStack(variableTables);
     pushList(topVariableTable,copyVariable(var));
+    IdVariable*idvar=NEW(IdVariable);
+    varid++;
+    idvar->id=varid;
+    idvar->variable=copyVariable(var);
+    pushList(translateTable,idvar);
 }
 
 void addVars2Table(LinkedList*var){
@@ -1524,7 +1555,7 @@ long myMalloc(int len){
     nmalloc+=1;
     void*rt=malloc(len);
     memset(rt,0,len);
-    printf("M:%p\n",rt);
+    //printf("M:%p\n",rt);
     pushListTest(mallocTable,rt);
     return rt;
 }
@@ -1534,20 +1565,20 @@ int compareAddress(void*a,void*b){
 }
 
 int printAddress(void*a){
-    printf("%p",a);
+    //printf("%p",a);
 }
 
 void myFree(void*a){
     nfree++;
     dropListElementTest(mallocTable,a,compareAddress);
-    printf("F:%p\n",a);
+    //printf("F:%p\n",a);
     free(a);
 }
 
 void printStart(struct TreeNode*root){
-    printf("%d:\n",root->type);
+    //printf("%d:\n",root->type);
 }
 
 void printEnd(struct TreeNode*root){
-    printf(":%d\n",root->type);
+    //printf(":%d\n",root->type);
 }
