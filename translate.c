@@ -183,22 +183,22 @@ Sentence*translateExp(struct TreeNode*node,char*place){
         }
     }else if(node->type==50){ //ID LP RP
         Function*func=searchList(functionTable,node->subnode[0]->val.type_string,equalByNameFunc);
-        Sentence*code2=createSentence();
-        if(place){
-            strcat(code2->str,place);
-            strcat(code2->str," := CALL ");
-        }else{
-            strcat(code2->str,"CALL ");
-        }
-        strcat(code2,func->name);
         if(strcmp(func->name,"read")==0){
             Sentence*code1=createList();
             strcat(code1->str,"READ ");
             strcat(code1->str,place);
-            codeAdd(code1,code2);
             return code1;
+        }else{
+            Sentence*code2=createSentence();
+            if(place){
+                strcat(code2->str,place);
+                strcat(code2->str," := CALL ");
+            }else{
+                strcat(code2->str,"CALL ");
+            }
+            strcat(code2,func->name);
+            return code2;
         }
-        return code2;
     }
     else if(node->type==49){    //ID LP Args RP
         Function*func=searchList(functionTable,node->subnode[0]->val.type_string,equalByNameFunc);
@@ -217,30 +217,31 @@ Sentence*translateExp(struct TreeNode*node,char*place){
                code3=NULL;
             }
             codeAdd(code1,codeAdd(code2,code3));
-        }
-        LinkedList*p=arglist->next;
-        while(p){
-
-            // IdVariable*idvar=searchList(translateTable,p->data,equalByNameIdVar);
-            // int type=idvar->variable->type->type;
-            int type=0;
-            Sentence*code4=createSentence();
-            strcat(code4->str,"ARG ");
-            if(type<4)
-                strcat(code4->str,"&");
-            strcat(code4->str,p->data);
-            codeAdd(code1,code4);
-
-            p=p->next;
-        }
-        Sentence*code5=createSentence();
-        if(place){
-            strcat(code5->str,place);
-            strcat(code5->str," := CALL ");
         }else{
-            strcat(code5->str,"CALL ");
+            LinkedList*p=arglist->next;
+            while(p){
+
+                // IdVariable*idvar=searchList(translateTable,p->data,equalByNameIdVar);
+                // int type=idvar->variable->type->type;
+                int type=((Variable*)(p->data))->type->type;
+                Sentence*code4=createSentence();
+                strcat(code4->str,"ARG ");
+                if(type>3)
+                    strcat(code4->str,"&");
+                strcat(code4->str,p->data);
+                codeAdd(code1,code4);
+
+                p=p->next;
+            }
+            Sentence*code5=createSentence();
+            if(place){
+                strcat(code5->str,place);
+                strcat(code5->str," := CALL ");
+            }else{
+                strcat(code5->str,"CALL ");
+            }
+            codeAdd(code1,code5);
         }
-        codeAdd(code1,code5);
         destoryListPro(arglist,free);
         return code1;
     }else if(node->type==51){   // Exp LB Exp RB

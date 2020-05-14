@@ -24,17 +24,20 @@ void sematicAnalysis(struct TreeNode*root){
     functionTable=createList();
 
     Function*funcWrite=NEW(Function);
-    funcWrite->name="write";
+    funcWrite->name=myMalloc(6*sizeof(char));
+    strcpy(funcWrite->name,"write");
     funcWrite->paraList=createList();
     Variable*writeI=NEW(Variable);
-    writeI->name="i";
+    writeI->name=myMalloc(2*sizeof(char));
+    strcpy(writeI->name,"i");
     writeI->type=NEW(AllType);
     writeI->type->type=INT;
     pushList(funcWrite->paraList,writeI);
     funcWrite->retType=NEW(AllType);
     funcWrite->retType->type=INT;
     Function*funcRead=NEW(Function);
-    funcRead->name="read";
+    funcRead->name=myMalloc(5*sizeof(char));
+    strcpy(funcRead->name,"read");
     funcRead->paraList=createList();
     funcRead->retType=NEW(AllType);
     funcRead->retType->type=INT;
@@ -48,9 +51,7 @@ void sematicAnalysis(struct TreeNode*root){
     pushStack(variableTables,newVariable);
     //Analyse
     if(root->type==0){
-        printf("FOUND!\n");
         sematicGeneExtDefList(root->subnode[0],0);
-        printf("FOUND!\n");
         printCode(translateProgram(root));
     }else{
         printf("Error: invalid type");
@@ -63,7 +64,7 @@ void sematicAnalysis(struct TreeNode*root){
     //printf("free variable table\n");
     destoryListPro(variableTables->next->data,destoryVariable);
     destoryStack(variableTables);
-    destoryListPro(translateTable,destoryIdVariable);
+    //destoryListPro(translateTable,destoryIdVariable);
     //printf("unfree:\n");
     printListTest(mallocTable,printAddress);
     printEnd(root);
@@ -674,6 +675,7 @@ void sematicGeneDecList(struct TreeNode*root,void*attribute){
     if(root->type==34){//Dec
         DecNode*subnode=NEW(DecNode);
         subnode->v=NEW(Variable);
+        subnode->v->name=NEW(char);
         subnode->compst=node->compst;
         subnode->v->type=copyType(node->type);
         sematicGeneDec(root->subnode[0],subnode);
@@ -688,6 +690,7 @@ void sematicGeneDecList(struct TreeNode*root,void*attribute){
         DecNode*subnode0=NEW(DecNode);
         subnode0->compst=node->compst;
         subnode0->v=NEW(Variable);
+        subnode0->v->name=NEW(char);
         subnode0->v->type=copyType(node->type);
         sematicGeneDec(root->subnode[0],subnode0);
         if(!subnode0->error){
@@ -1576,9 +1579,9 @@ void myFree(void*a){
 }
 
 void printStart(struct TreeNode*root){
-    //printf("%d:\n",root->type);
+    // printf("%d:\n",root->type);
 }
 
 void printEnd(struct TreeNode*root){
-    //printf(":%d\n",root->type);
+    // printf(":%d\n",root->type);
 }
