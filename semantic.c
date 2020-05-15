@@ -1560,7 +1560,7 @@ long myMalloc(int len){
     nmalloc+=1;
     void*rt=malloc(len);
     memset(rt,0,len);
-    //printf("M:%p\n",rt);
+    // printf("M:%p\n",rt);
     pushListTest(mallocTable,rt);
     return rt;
 }
@@ -1570,13 +1570,13 @@ int compareAddress(void*a,void*b){
 }
 
 int printAddress(void*a){
-    //printf("%p",a);
+    // printf("%p",a);
 }
 
 void myFree(void*a){
     nfree++;
     dropListElementTest(mallocTable,a,compareAddress);
-    //printf("F:%p\n",a);
+    // printf("F:%p\n",a);
     free(a);
 }
 

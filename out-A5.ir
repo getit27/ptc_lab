@@ -1,0 +1,54 @@
+FUNCTION swap :
+v3 := v1
+t1 := v2
+v1 := t1
+t2 := v3
+v2 := t2
+t3 := v1
+WRITE t3
+t4 := v2
+WRITE t4
+t5 := v1
+RETURN t5
+FUNCTION main :
+DEC v4 20
+v5 := #0
+LABEL label1 :
+t6 := v5
+t7 := #5
+IF t6 < t7 GOTO label2
+GOTO label3
+LABEL label2 :
+READ t8
+t9 := v4
+t10 := v5
+t11 := t10 * #4
+t12 := &t9 + t11
+*t12 := t8
+t13 := v5
+t14 := #0
+IF t13 > t14 GOTO label4
+GOTO label5
+t16 := v4
+t18 := v5
+t19 := #1
+t17 := t18 - t19
+t20 := t17 * #4
+t21 := &t16 + t20
+t15 := *t21
+t23 := v4
+t24 := v5
+t25 := t24 * #4
+t26 := &t23 + t25
+t22 := *t26
+ARG t15
+ARG t22
+CALL swap
+t28 := v5
+t29 := #1
+t27 := t28 + t29
+v5 := t27
+GOTO label1
+LABEL label3 :
+t30 := #0
+RETURN t30

@@ -556,7 +556,7 @@ Sentence*translateArgs(struct TreeNode*node,LinkedList*arglist){
     }else if(node->type==56){   // Exp COMMA Args
         char*t1=newT();
         Sentence*code1=translateExp(node->subnode[0],t1,NULL);
-        pushList(arglist,t1);
+        pushList(arglist,copyString(t1));
         Sentence*code2=translateArgs(node->subnode[2],arglist);
         code1=codeAdd(code1,code2);
         myFree(t1);

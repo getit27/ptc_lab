@@ -1,0 +1,289 @@
+FUNCTION countSort :
+DEC v1 20
+DEC v2 40
+DEC v3 20
+t1 := #0
+v4 := t1
+LABEL label1 :
+t2 := v4
+t3 := #10
+IF t2 < t3 GOTO label2
+GOTO label3
+LABEL label2 :
+t4 := #0
+t5 := v2
+t6 := v4
+t7 := t6 * #4
+t8 := &t5 + t7
+*t8 := t4
+t10 := v4
+t11 := #1
+t9 := t10 + t11
+v4 := t9
+GOTO label1
+LABEL label3 :
+t12 := #0
+v4 := t12
+LABEL label4 :
+t13 := v4
+t14 := #5
+IF t13 < t14 GOTO label5
+GOTO label6
+LABEL label5 :
+READ t15
+t16 := v1
+t17 := v4
+t18 := t17 * #4
+t19 := &t16 + t18
+*t19 := t15
+t23 := v2
+t25 := v1
+t26 := v4
+t27 := t26 * #4
+t28 := &t25 + t27
+t24 := *t28
+t29 := t24 * #4
+t30 := &t23 + t29
+t21 := *t30
+t22 := #1
+t20 := t21 + t22
+t31 := v2
+t33 := v1
+t34 := v4
+t35 := t34 * #4
+t36 := &t33 + t35
+t32 := *t36
+t37 := t32 * #4
+t38 := &t31 + t37
+*t38 := t20
+t40 := v4
+t41 := #1
+t39 := t40 + t41
+v4 := t39
+GOTO label4
+LABEL label6 :
+t42 := #1
+v4 := t42
+LABEL label7 :
+t43 := v4
+t44 := #10
+IF t43 < t44 GOTO label8
+GOTO label9
+LABEL label8 :
+t48 := v2
+t49 := v4
+t50 := t49 * #4
+t51 := &t48 + t50
+t46 := *t51
+t52 := v2
+t54 := v4
+t55 := #1
+t53 := t54 - t55
+t56 := t53 * #4
+t57 := &t52 + t56
+t47 := *t57
+t45 := t46 + t47
+t58 := v2
+t59 := v4
+t60 := t59 * #4
+t61 := &t58 + t60
+*t61 := t45
+t63 := v4
+t64 := #1
+t62 := t63 + t64
+v4 := t62
+GOTO label7
+LABEL label9 :
+t65 := #0
+v4 := t65
+LABEL label10 :
+t66 := v4
+t67 := #5
+IF t66 < t67 GOTO label11
+GOTO label12
+LABEL label11 :
+t69 := v1
+t70 := v4
+t71 := t70 * #4
+t72 := &t69 + t71
+t68 := *t72
+t73 := v3
+t77 := v2
+t79 := v1
+t80 := v4
+t81 := t80 * #4
+t82 := &t79 + t81
+t78 := *t82
+t83 := t78 * #4
+t84 := &t77 + t83
+t75 := *t84
+t76 := #1
+t74 := t75 - t76
+t85 := t74 * #4
+t86 := &t73 + t85
+*t86 := t68
+t90 := v2
+t92 := v1
+t93 := v4
+t94 := t93 * #4
+t95 := &t92 + t94
+t91 := *t95
+t96 := t91 * #4
+t97 := &t90 + t96
+t88 := *t97
+t89 := #1
+t87 := t88 - t89
+t98 := v2
+t100 := v1
+t101 := v4
+t102 := t101 * #4
+t103 := &t100 + t102
+t99 := *t103
+t104 := t99 * #4
+t105 := &t98 + t104
+*t105 := t87
+t107 := v4
+t108 := #1
+t106 := t107 + t108
+v4 := t106
+GOTO label10
+LABEL label12 :
+t109 := #0
+v4 := t109
+LABEL label13 :
+t110 := v4
+t111 := #5
+IF t110 < t111 GOTO label14
+GOTO label15
+LABEL label14 :
+t113 := v3
+t114 := v4
+t115 := t114 * #4
+t116 := &t113 + t115
+t112 := *t116
+WRITE t112
+t118 := v4
+t119 := #1
+t117 := t118 + t119
+v4 := t117
+GOTO label13
+LABEL label15 :
+t120 := #0
+RETURN t120
+FUNCTION bubbleSort :
+DEC v5 20
+t121 := #0
+v6 := t121
+LABEL label16 :
+t122 := v6
+t123 := #5
+IF t122 < t123 GOTO label17
+GOTO label18
+LABEL label17 :
+READ t124
+t125 := v5
+t126 := v6
+t127 := t126 * #4
+t128 := &t125 + t127
+*t128 := t124
+t130 := v6
+t131 := #1
+t129 := t130 + t131
+v6 := t129
+GOTO label16
+LABEL label18 :
+t132 := #1
+v7 := t132
+LABEL label19 :
+t133 := v7
+t134 := #1
+IF t133 == t134 GOTO label20
+GOTO label21
+LABEL label20 :
+t135 := #0
+v7 := t135
+t136 := #1
+v6 := t136
+LABEL label22 :
+t137 := v6
+t138 := #5
+IF t137 < t138 GOTO label23
+GOTO label24
+LABEL label23 :
+t141 := v5
+t142 := v6
+t143 := t142 * #4
+t144 := &t141 + t143
+t139 := *t144
+t145 := v5
+t147 := v6
+t148 := #1
+t146 := t147 - t148
+t149 := t146 * #4
+t150 := &t145 + t149
+t140 := *t150
+IF t139 < t140 GOTO label25
+GOTO label26
+t151 := #1
+v7 := t151
+t153 := v5
+t155 := v6
+t156 := #1
+t154 := t155 - t156
+t157 := t154 * #4
+t158 := &t153 + t157
+t152 := *t158
+v8 := t152
+t160 := v5
+t161 := v6
+t162 := t161 * #4
+t163 := &t160 + t162
+t159 := *t163
+t164 := v5
+t166 := v6
+t167 := #1
+t165 := t166 - t167
+t168 := t165 * #4
+t169 := &t164 + t168
+*t169 := t159
+t170 := v8
+t171 := v5
+t172 := v6
+t173 := t172 * #4
+t174 := &t171 + t173
+*t174 := t170
+t176 := v6
+t177 := #1
+t175 := t176 + t177
+v6 := t175
+GOTO label22
+LABEL label24 :
+GOTO label19
+LABEL label21 :
+t178 := #0
+v6 := t178
+LABEL label27 :
+t179 := v6
+t180 := #5
+IF t179 < t180 GOTO label28
+GOTO label29
+LABEL label28 :
+t182 := v5
+t183 := v6
+t184 := t183 * #4
+t185 := &t182 + t184
+t181 := *t185
+WRITE t181
+t187 := v6
+t188 := #1
+t186 := t187 + t188
+v6 := t186
+GOTO label27
+LABEL label29 :
+t189 := #0
+RETURN t189
+FUNCTION main :
+CALL countSort
+CALL bubbleSort
+t190 := #0
+RETURN t190
