@@ -1002,8 +1002,10 @@ State 76
    58    | Exp . DOT ID
    62    | Exp . LB error RB
 
-    DOT  shift, and go to state 90
-    LB   shift, and go to state 91
+    STAR  shift, and go to state 86
+    DIV   shift, and go to state 88
+    DOT   shift, and go to state 90
+    LB    shift, and go to state 91
 
     $default  reduce using rule 53 (Exp)
 
@@ -1417,8 +1419,12 @@ State 102
    58    | Exp . DOT ID
    62    | Exp . LB error RB
 
-    DOT  shift, and go to state 90
-    LB   shift, and go to state 91
+    PLUS   shift, and go to state 84
+    MINUS  shift, and go to state 85
+    STAR   shift, and go to state 86
+    DIV    shift, and go to state 88
+    DOT    shift, and go to state 90
+    LB     shift, and go to state 91
 
     $default  reduce using rule 47 (Exp)
 
@@ -1438,8 +1444,10 @@ State 103
    58    | Exp . DOT ID
    62    | Exp . LB error RB
 
-    DOT  shift, and go to state 90
-    LB   shift, and go to state 91
+    STAR  shift, and go to state 86
+    DIV   shift, and go to state 88
+    DOT   shift, and go to state 90
+    LB    shift, and go to state 91
 
     $default  reduce using rule 48 (Exp)
 
@@ -1459,8 +1467,10 @@ State 104
    58    | Exp . DOT ID
    62    | Exp . LB error RB
 
-    DOT  shift, and go to state 90
-    LB   shift, and go to state 91
+    STAR  shift, and go to state 86
+    DIV   shift, and go to state 88
+    DOT   shift, and go to state 90
+    LB    shift, and go to state 91
 
     $default  reduce using rule 49 (Exp)
 
@@ -1501,8 +1511,13 @@ State 106
    58    | Exp . DOT ID
    62    | Exp . LB error RB
 
-    DOT  shift, and go to state 90
-    LB   shift, and go to state 91
+    RELOP  shift, and go to state 83
+    PLUS   shift, and go to state 84
+    MINUS  shift, and go to state 85
+    STAR   shift, and go to state 86
+    DIV    shift, and go to state 88
+    DOT    shift, and go to state 90
+    LB     shift, and go to state 91
 
     $default  reduce using rule 45 (Exp)
 
@@ -1543,8 +1558,14 @@ State 108
    58    | Exp . DOT ID
    62    | Exp . LB error RB
 
-    DOT  shift, and go to state 90
-    LB   shift, and go to state 91
+    RELOP  shift, and go to state 83
+    PLUS   shift, and go to state 84
+    MINUS  shift, and go to state 85
+    STAR   shift, and go to state 86
+    AND    shift, and go to state 87
+    DIV    shift, and go to state 88
+    DOT    shift, and go to state 90
+    LB     shift, and go to state 91
 
     $default  reduce using rule 46 (Exp)
 

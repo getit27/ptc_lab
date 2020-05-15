@@ -21,7 +21,7 @@ typedef struct Sentence{
 
 Sentence*codeAdd(Sentence*code1,Sentence*code2);
 
-Sentence*translateExp(struct TreeNode*node,char*place,char*value);
+Sentence*translateExp(struct TreeNode*node,char*place,char*values);
 
 Sentence*translateStmt(struct TreeNode*node);
 

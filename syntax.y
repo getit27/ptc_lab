@@ -21,7 +21,11 @@
 %token <node> LP RP LB RB LC RC
 
 %right ASSIGNOP NOT
-%left OR AND RELOP PLUS MINUS STAR DIV
+%left OR 
+%left AND 
+%left RELOP 
+%left PLUS MINUS 
+%left STAR DIV
 %left LP RP LB RB DOT
 %nonassoc COMMA LC RC TYPE STRUCT INT FLOAT RETURN IF WHILE ID
 %nonassoc ELSE
@@ -38,8 +42,8 @@ Program:    ExtDefList
                     struct TreeNode*sub[1]={$1};
                     $$=newTreeNode(0,@$.first_line,1,sub);
                     if(pass){
-                        traverseTree($$,0);
-                        //sematicAnalysis($$);
+                        //traverseTree($$,0);
+                        sematicAnalysis($$);
                     }
                 }
     ;

@@ -48,9 +48,9 @@ struct TreeNode* newTreeStrLeaf(int type,int line,char* value){
 }
 
 void traverseTree(struct TreeNode* root,int level){
-    sematicAnalysis(root);
+    //sematicAnalysis(root);
     //ifError(root);
-    return;
+    //return;
     char*name=getTypeName(root->type);
     if(root->leaf){
         for(int i=0;i<level;i++){
