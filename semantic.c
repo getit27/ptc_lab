@@ -53,7 +53,8 @@ void sematicAnalysis(struct TreeNode*root){
     //Analyse
     if(root->type==0){
         sematicGeneExtDefList(root->subnode[0],0);
-        printCode(interCode=translateProgram(root));
+        interCode=translateProgram(root);
+        printCode(interCode);
     }else{
         printf("Error: invalid type");
         exit(1);
