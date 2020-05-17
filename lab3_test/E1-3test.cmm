@@ -9,12 +9,7 @@ struct ScoreClass{
 int average(struct ScoreClass class){
 	int scoreSum = 0;
 	int i, N = class.num;
-	write(N);
-	write(class.scoreDetail[0].score);
-	write(class.scoreDetail[1].score);
-	write(class.scoreDetail[2].score);
 	while(i < N){
-		write(class.scoreDetail[i].score);
 		scoreSum = class.scoreDetail[i].score + scoreSum;
 		i = i + 1;
 	}
@@ -27,9 +22,9 @@ int main(){
 	classInit.num = initN;
 	while(j < initN){
 		classInit.scoreDetail[j].score = (j + 1) * (j + 1);
+		write(classInit.scoreDetail[j].score);
 		j = j + 1;
 	}
-	write(classInit.num);
 	result = average(classInit);
 	write(result);
 	return 0;

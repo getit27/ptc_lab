@@ -1,0 +1,105 @@
+FUNCTION main :
+DEC v4 120
+v5 := #0
+v6 := #0
+v7 := #10
+v8 := #10
+v9 := #0
+LABEL label1 :
+t1 := v5
+t2 := v8
+IF t1 < t2 GOTO label2
+GOTO label3
+LABEL label2 :
+t3 := #100
+t5 := &v4
+t6 := v5
+t7 := t6 * #12
+t8 := t5 + t7
+t4 := t5 + t7
+t9 := t4 + #0
+*t9 := t3
+t10 := v5
+t12 := &v4
+t13 := v5
+t14 := t13 * #12
+t15 := t12 + t14
+t11 := t12 + t14
+t16 := t11 + #4
+*t16 := t10
+t22 := v5
+t23 := v5
+t20 := t22 * t23
+t21 := v5
+t18 := t20 - t21
+t19 := #2
+t17 := t18 + t19
+t25 := &v4
+t26 := v5
+t27 := t26 * #12
+t28 := t25 + t27
+t24 := t25 + t27
+t29 := t24 + #8
+*t29 := t17
+t31 := v5
+t32 := #1
+t30 := t31 + t32
+v5 := t30
+GOTO label1
+LABEL label3 :
+LABEL label4 :
+t33 := v6
+t34 := v8
+IF t33 < t34 GOTO label5
+GOTO label6
+LABEL label5 :
+t38 := &v4
+t39 := v6
+t40 := t39 * #12
+t41 := t38 + t40
+t37 := t38 + t40
+t42 := t37 + #4
+t35 := *t42
+t36 := #3
+IF t35 < t36 GOTO label7
+GOTO label8
+LABEL label7 :
+t43 := #1
+v7 := t43
+GOTO label9
+LABEL label8 :
+t44 := #2
+v7 := t44
+LABEL label9 :
+t46 := v9
+t53 := &v4
+t54 := v6
+t55 := t54 * #12
+t56 := t53 + t55
+t52 := t53 + t55
+t57 := t52 + #0
+t50 := *t57
+t58 := #365
+t61 := &v4
+t62 := v6
+t63 := t62 * #12
+t64 := t61 + t63
+t60 := t61 + t63
+t65 := t60 + #8
+t59 := *t65
+t51 := t58 - t59
+t48 := t50 * t51
+t49 := v7
+t47 := t48 * t49
+t45 := t46 + t47
+v9 := t45
+t67 := v6
+t68 := #1
+t66 := t67 + t68
+v6 := t66
+GOTO label4
+LABEL label6 :
+t69 := v9
+WRITE t69
+t70 := #0
+RETURN t70

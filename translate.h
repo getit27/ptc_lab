@@ -29,7 +29,7 @@ Sentence*translateStmt(struct TreeNode*node);
 
 Sentence*translateCond(struct TreeNode*node,char*ltrue,char*lfalse);
 
-Sentence*translateArgs(struct TreeNode*node,LinkedList*arglist);
+Sentence*translateArgs(struct TreeNode*node,LinkedList*arglist,LinkedList*addlist);
 
 Sentence*translateCompst(struct TreeNode*node);
 
