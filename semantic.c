@@ -68,7 +68,7 @@ void sematicAnalysis(struct TreeNode*root){
     destoryStack(variableTables);
     //destoryListPro(translateTable,destoryIdVariable);
     //printf("unfree:\n");
-    printListTest(mallocTable,printAddress);
+    //printListTest(mallocTable,printAddress);
     printEnd(root);
 }
 
@@ -268,7 +268,7 @@ void sematicGeneStructSpecifier(struct TreeNode*root,void*attribute){
         sematicGeneTag(root->subnode[1],subnode);
         Struct*str=getStructbName(subnode->id);
         if(str){
-            destoryType(node->t);
+            //destoryType(node->t);
             node->t->type=str->num;
             node->error=0;
         }else{
@@ -1305,16 +1305,14 @@ Struct*structAdd(Struct*str,Variable*src,int copy){
 
 Variable*copyVariable(Variable*var){
     Variable*newVariable=(Variable*)myMalloc(sizeof(Variable));
-    newVariable->name=(char*)myMalloc(sizeof(char)*(strlen(var->name)+1));
-    strcpy(newVariable->name,var->name);
+    newVariable->name=copyString(var->name);
     newVariable->type=copyType(var->type);
     return newVariable;
 }
 
 Struct*copyStruct(Struct*str){
     Struct*newStruct=(Struct*)myMalloc(sizeof(Struct));
-    newStruct->name=(char*)myMalloc(sizeof(char)*(strlen(str->name)+1));
-    strcpy(newStruct->name,str->name);
+    newStruct->name=copyString(str->name);
     newStruct->datalist=copyListPro(str->datalist,copyVariable);
     newStruct->num=str->num;
     return newStruct;
@@ -1331,6 +1329,8 @@ AllType*copyType(AllType*type){
     }
     return newType;
 }
+
+
 
 Function*copyFunc(Function*func){
     Function*newFunc=NEW(Function);
@@ -1561,7 +1561,11 @@ long myMalloc(int len){
     void*rt=malloc(len);
     memset(rt,0,len);
     // printf("M:%p\n",rt);
+    
+    if(searchListTest(mallocTable,rt,compareAddress))
+        printf("MALLOC WARNING: RE MALLOC");
     pushListTest(mallocTable,rt);
+
     return rt;
 }
 
@@ -1570,20 +1574,22 @@ int compareAddress(void*a,void*b){
 }
 
 int printAddress(void*a){
-    // printf("%p",a);
+    //printf("%p",a);
 }
 
 void myFree(void*a){
     nfree++;
+    
     dropListElementTest(mallocTable,a,compareAddress);
-    // printf("F:%p\n",a);
+    //printf("F:%p\n",a);
+    
     free(a);
 }
 
 void printStart(struct TreeNode*root){
-    // printf("%d:\n",root->type);
+    //printf("%d:\n",root->type);
 }
 
 void printEnd(struct TreeNode*root){
-    // printf(":%d\n",root->type);
+    //printf(":%d\n",root->type);
 }

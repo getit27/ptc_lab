@@ -6,6 +6,7 @@ extern LinkedList*translateTable;
 extern LinkedList*functionTable;
 extern LinkedList*structTable;
 extern Sentence*interCode;
+
 int tnum=0;
 int lnum=0;
 
@@ -64,7 +65,7 @@ Sentence*codeAdd(Sentence*code1,Sentence*code2){
     return code1;
 }
 
-Sentence*translateExp(struct TreeNode*node,char*place,char*values){
+Sentence*translateExp(struct TreeNode*node,char*place,char*values,AllType*types){
     if(node->type==54){ //INT
         Sentence*code=NULL;
         if(place){
@@ -74,6 +75,9 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
             char value[10];
             itoa(node->subnode[0]->val.type_int,value,10);
             strcat(code->str,value);
+        }
+        if(types){
+            types->type=INT;
         }
         return code;
     }else if(node->type==53){ // ID
@@ -95,22 +99,47 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
             strcat(code2->str," := v");
             strcat(code2->str,num);
         }
+
+        AllType*oldType=idvar->variable->type;
+        if(types){
+            if(oldType->type!=4){//notarray
+                types->type=oldType->type;
+            }else{
+                types->size=oldType->size;
+                types->type=oldType->type;
+                types->element=copyType(oldType->element);
+            }
+        }
+
         code1=codeAdd(code1,code2);
         return code1;
     }else if(node->type==38){   // Exp ASSIGNOP Exp
         char*t1=newT();
-        Sentence*code1=translateExp(node->subnode[2],t1,NULL);
-        Sentence*code2=translateExp(node->subnode[0],place,t1);
+        AllType*tp=myMalloc(sizeof(AllType));
+        Sentence*code1=translateExp(node->subnode[2],t1,NULL,tp);
+        Sentence*code2=translateExp(node->subnode[0],place,t1,NULL);
 
+        AllType*oldType=tp;
+        if(types){
+            if(oldType->type!=4){//notarray
+                types->type=oldType->type;
+            }else{
+                types->type=oldType->type;
+                types->size=oldType->size;
+                types->element=copyType(oldType->element);
+            }
+        }
+        
         code1=codeAdd(code1,code2);
+        myFree(tp);
         myFree(t1);
         return code1;
     }else if(node->type==42){
         if(place){
             char*t1=newT();
             char*t2=newT();
-            Sentence*code1=translateExp(node->subnode[0],t1,NULL);
-            Sentence*code2=translateExp(node->subnode[2],t2,NULL);
+            Sentence*code1=translateExp(node->subnode[0],t1,NULL,NULL);
+            Sentence*code2=translateExp(node->subnode[2],t2,NULL,NULL);
             
             Sentence*code3=createSentence();
             strcat(code3->str,place);
@@ -129,8 +158,8 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
         if(place){
             char*t1=newT();
             char*t2=newT();
-            Sentence*code1=translateExp(node->subnode[0],t1,NULL);
-            Sentence*code2=translateExp(node->subnode[2],t2,NULL);
+            Sentence*code1=translateExp(node->subnode[0],t1,NULL,NULL);
+            Sentence*code2=translateExp(node->subnode[2],t2,NULL,NULL);
             
             Sentence*code3=createSentence();
             strcat(code3->str,place);
@@ -149,8 +178,8 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
          if(place){
             char*t1=newT();
             char*t2=newT();
-            Sentence*code1=translateExp(node->subnode[0],t1,NULL);
-            Sentence*code2=translateExp(node->subnode[2],t2,NULL);
+            Sentence*code1=translateExp(node->subnode[0],t1,NULL,NULL);
+            Sentence*code2=translateExp(node->subnode[2],t2,NULL,NULL);
             
             Sentence*code3=createSentence();
             strcat(code3->str,place);
@@ -169,8 +198,8 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
         if(place){
             char*t1=newT();
             char*t2=newT();
-            Sentence*code1=translateExp(node->subnode[0],t1,NULL);
-            Sentence*code2=translateExp(node->subnode[2],t2,NULL);
+            Sentence*code1=translateExp(node->subnode[0],t1,NULL,NULL);
+            Sentence*code2=translateExp(node->subnode[2],t2,NULL,NULL);
             
             Sentence*code3=createSentence();
             strcat(code3->str,place);
@@ -188,7 +217,7 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
     }else if(node->type==47){
         if(place){
             char*t1=newT();
-            Sentence*code1=translateExp(node->subnode[1],t1,NULL);
+            Sentence*code1=translateExp(node->subnode[1],t1,NULL,NULL);
             Sentence*code2=createSentence();
             strcat(code2->str,place);
             strcat(code2->str," := #0 - ");
@@ -298,9 +327,11 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
         return code1;
     }else if(node->type==51){   // Exp LB Exp RB
         char*t1=newT();
-        Sentence*code1=translateExp(node->subnode[0],t1,NULL);
+        
+        AllType*tp=myMalloc(sizeof(AllType));
+        Sentence*code1=translateExp(node->subnode[0],t1,NULL,tp);
         char*t2=newT();
-        Sentence*code2=translateExp(node->subnode[2],t2,NULL);
+        Sentence*code2=translateExp(node->subnode[2],t2,NULL,NULL);
 
         char*t3=newT();
         Sentence*code3=createSentence();
@@ -333,19 +364,36 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
             strcat(code6->str," := *");
             strcat(code6->str,t4);
         } 
+
+        AllType*oldType=tp->element;
+        if(types){
+            if(oldType->type!=4){//notarray
+                types->type=oldType->type;
+            }else{
+                types->type=oldType->type;
+                types->size=oldType->size;
+                types->element=copyType(oldType->element);
+            }
+        }
+
         code1=codeAdd(code1,codeAdd(code2,codeAdd(code3,codeAdd(code4,codeAdd(code5,code6)))));
         myFree(t1);
         myFree(t2);
         myFree(t3);
+        myFree(tp);
         return code1;
         
     }else if(node->type==52){ // Exp DOT ID
-        IdVariable*idvar=searchList(translateTable,node->subnode[0]->val.type_string,equalByNameIdVar);
-        Struct*stru=listGet(structTable,idvar->variable->type->type-4);
+        char*t1=newT();
+        AllType*tp=myMalloc(sizeof(AllType));
+        Sentence*code1=translateExp(node->subnode[0],t1,NULL,tp);
+
+        Struct*stru=listGet(structTable,tp->type-5);
         char*name=copyString(node->subnode[2]->val.type_string);
         int shift=shiftStruct(stru,name);
-        char*t1=newT();
-        Sentence*code1=translateExp(node->subnode[0],t1,NULL);
+
+        Variable*var=searchList(stru->datalist,name,equalByNameStructField);
+
         char*t2=newT();
         char value[10];
         itoa(shift,value,10);
@@ -374,14 +422,26 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
             strcat(code4->str,t2);
         }
 
+        AllType*oldType=var->type;
+        if(types){
+            if(oldType->type!=4){//notarray
+                types->type=oldType->type;
+            }else{
+                types->type=oldType->type;
+                types->size=oldType->size;
+                types->element=copyType(oldType->element);
+            }
+        }
+
         code1=codeAdd(code1,codeAdd(code2,codeAdd(code3,code4)));
         myFree(t1);
         myFree(t2);
+        myFree(tp);
         myFree(name);
         
         return code1;
     }else if(node->type==46){   // LP Exp RP
-        Sentence*code1=translateExp(node->subnode[1],place,NULL);
+        Sentence*code1=translateExp(node->subnode[1],place,NULL,NULL);
         return code1;
     }else{
         printf("Translate Exp Error\n");
@@ -391,12 +451,12 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values){
 
 Sentence*translateStmt(struct TreeNode*node){
     if(node->type==25){
-        return translateExp(node->subnode[0],NULL,NULL);
+        return translateExp(node->subnode[0],NULL,NULL,NULL);
     }else if(node->type==26){
         return translateCompst(node->subnode[0]);
     }else if(node->type==27){
         char*t1=newT();
-        Sentence*code1=translateExp(node->subnode[1],t1,NULL);
+        Sentence*code1=translateExp(node->subnode[1],t1,NULL,NULL);
         Sentence*code2=createSentence();
         strcat(code2->str,"RETURN ");
         strcat(code2->str,t1);
@@ -484,8 +544,8 @@ Sentence*translateCond(struct TreeNode*node,char*ltrue,char*lfalse){
     if(node->type==41){
         char*t1=newT();
         char*t2=newT();
-        Sentence*code1=translateExp(node->subnode[0],t1,NULL);
-        Sentence*code2=translateExp(node->subnode[2],t2,NULL);
+        Sentence*code1=translateExp(node->subnode[0],t1,NULL,NULL);
+        Sentence*code2=translateExp(node->subnode[2],t2,NULL,NULL);
         char*op=node->subnode[1]->val.type_string;
 
         Sentence*code3=createSentence();
@@ -531,7 +591,7 @@ Sentence*translateCond(struct TreeNode*node,char*ltrue,char*lfalse){
         return code1;
     }else{
         char*t1=newT();
-        Sentence*code1=translateExp(node,t1,NULL);
+        Sentence*code1=translateExp(node,t1,NULL,NULL);
         Sentence*code2=createSentence();
         strcpy(code2->str,"IF ");
         strcpy(code2->str,t1);
@@ -549,13 +609,13 @@ Sentence*translateCond(struct TreeNode*node,char*ltrue,char*lfalse){
 Sentence*translateArgs(struct TreeNode*node,LinkedList*arglist){
     if(node->type==57){ //Exp
         char*t1=newT();
-        Sentence*code1=translateExp(node->subnode[0],t1,NULL);
+        Sentence*code1=translateExp(node->subnode[0],t1,NULL,NULL);
         pushList(arglist,copyString(t1));
         myFree(t1);
         return code1;
     }else if(node->type==56){   // Exp COMMA Args
         char*t1=newT();
-        Sentence*code1=translateExp(node->subnode[0],t1,NULL);
+        Sentence*code1=translateExp(node->subnode[0],t1,NULL,NULL);
         pushList(arglist,copyString(t1));
         Sentence*code2=translateArgs(node->subnode[2],arglist);
         code1=codeAdd(code1,code2);
@@ -590,6 +650,11 @@ Sentence*translateExtDef(struct TreeNode*node){
         Sentence*code2=translateCompst(node->subnode[2]);
         code1=codeAdd(code1,code2);
         return code1;
+    }else if(node->type==3||node->type==4){
+        return NULL;
+    }else{
+        printf("translate extdef\n");
+        return NULL;
     }
 }
 
@@ -652,7 +717,7 @@ Sentence*translateDec(struct TreeNode*node){
         itoa(idvar->id,num,10);
         strcat(place,num);
         
-        Sentence*code2=translateExp(node->subnode[2],place,NULL);
+        Sentence*code2=translateExp(node->subnode[2],place,NULL,NULL);
         return codeAdd(code1,code2);
     }
 }
@@ -695,15 +760,15 @@ Sentence*translateVarDec(struct TreeNode*node,char*name){
 }
 
 int shiftStruct(Struct*stru,char*name){
-    LinkedList*varList=stru->datalist;
+    LinkedList*varList=stru->datalist->next;
     int swift=0;
     while(varList){
         if(equalByNameVar(varList->data,name)){
             return swift;       
         }else{
-            if(((Variable*)(varList->data))->type<4){
+            if(((Variable*)(varList->data))->type->type<4){
                 swift+=4;
-            }else if(((Variable*)(varList->data))->type==4){
+            }else if(((Variable*)(varList->data))->type->type==4){
                 swift+=spaceArray(varList->data);
             }else{
                 swift+=spaceStruct(varList->data);
@@ -717,8 +782,8 @@ int shiftStruct(Struct*stru,char*name){
 
 int spaceStruct(Variable*var){
     if(var->type->type>4){
-        Struct*stru=listGet(structTable,var->type->type-4);
-        LinkedList*dataList=stru->datalist;
+        Struct*stru=listGet(structTable,var->type->type-5);
+        LinkedList*dataList=stru->datalist->next;
         int num=0;
         while(dataList){
             int type=((Variable*)(dataList->data))->type->type;
@@ -731,7 +796,7 @@ int spaceStruct(Variable*var){
         }
         return 4;
     }else{
-        printf("Error\n");
+        printf("space Struct Error\n");
         return 4;
     }
 }

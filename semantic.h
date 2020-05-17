@@ -156,3 +156,4 @@ long myMalloc(int len);
 void myFree(void*a);
 void printStart(struct TreeNode*root);
 void printEnd(struct TreeNode*root);
+int compareAddress(void*a,void*b);
