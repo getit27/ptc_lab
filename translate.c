@@ -463,12 +463,22 @@ Sentence*translateStmt(struct TreeNode*node){
         code1=codeAdd(code1,code2);
         myFree(t1);
         return code1;
-    }else if(node->type==28){
+    }else if(node->type==28){// IF LP Exp RP Stmt
         char*label1=newL();
         char*label2=newL();
         Sentence*code1=translateCond(node->subnode[2],label1,label2);
         Sentence*code2=translateStmt(node->subnode[4]);
-        code1=codeAdd(code1,code2);
+        Sentence*code12=createSentence();
+        strcat(code12->str,"LABEL ");
+        strcat(code12->str,label1);
+        strcat(code12->str," :");
+
+        Sentence*code22=createSentence();
+        strcat(code22->str,"LABEL ");
+        strcat(code22->str,label2);
+        strcat(code22->str," :");
+
+        code1=codeAdd(code1,codeAdd(code12,codeAdd(code2,code22)));
         myFree(label1);
         myFree(label2); 
         return code1;

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/target",
-            "args": ["./lab3_test/E1-2.cmm","out-E1-2.ir"],
+            "args": ["./lab3_test/A1.5.cmm","out-A1.5.ir"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
