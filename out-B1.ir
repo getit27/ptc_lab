@@ -1,8 +1,8 @@
 FUNCTION hanoi :
-PARAM v1
-PARAM v2
-PARAM v3
 PARAM v4
+PARAM v3
+PARAM v2
+PARAM v1
 t1 := v1
 t2 := #1
 IF t1 == t2 GOTO label1
@@ -26,37 +26,37 @@ ARG t8
 ARG t11
 ARG t12
 ARG t13
-CALL hanoi
-t17 := v2
-t18 := #1000000
-t15 := t17 * t18
-t16 := v4
-t14 := t15 + t16
-WRITE t14
-t20 := v1
-t21 := #1
-t19 := t20 - t21
-t22 := v3
-t23 := v2
-t24 := v4
-ARG t19
-ARG t22
+t14 := CALL hanoi
+t18 := v2
+t19 := #1000000
+t16 := t18 * t19
+t17 := v4
+t15 := t16 + t17
+WRITE t15
+t21 := v1
+t22 := #1
+t20 := t21 - t22
+t23 := v3
+t24 := v2
+t25 := v4
+ARG t20
 ARG t23
 ARG t24
-CALL hanoi
+ARG t25
+t26 := CALL hanoi
 LABEL label3 :
-t25 := #0
-RETURN t25
+t27 := #0
+RETURN t27
 FUNCTION main :
 v5 := #3
-t26 := v5
-t27 := #1
-t28 := #2
-t29 := #3
-ARG t26
-ARG t27
+t28 := v5
+t29 := #1
+t30 := #2
+t31 := #3
 ARG t28
 ARG t29
-CALL hanoi
-t30 := #0
-RETURN t30
+ARG t30
+ARG t31
+t32 := CALL hanoi
+t33 := #0
+RETURN t33

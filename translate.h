@@ -21,7 +21,9 @@ typedef struct Sentence{
 
 Sentence*codeAdd(Sentence*code1,Sentence*code2);
 
-Sentence*translateExp(struct TreeNode*node,char*place,char*values,struct at_*types);
+Sentence*translateExp(struct TreeNode*node,char*place,char*values,struct at_*types,char*address);
+
+//Sentence*translateExpAddress(struct TreeNode*node,char*place,char*exp0,char*exp1);
 
 Sentence*translateStmt(struct TreeNode*node);
 
@@ -56,6 +58,12 @@ int shiftStruct(struct str_*stru,char*name);
 int spaceStruct(struct var_*var);
 
 int spaceArray(struct var_*var);
+
+int spaceStructType(struct at_*type);
+
+int spaceArrayType(struct at_*type);
+
+int spaceType(struct at_*type);
 
 void printInterCode(FILE*fo);
 

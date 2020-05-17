@@ -5,7 +5,7 @@ struct Worker{
 };
 int main(){
 	struct Worker worker[10];
-	int i, j, add, N = 10;
+	int i = 10, j = 10, add = 10, N = 10;
 	int final = 0;
 	while(i < N){
 		worker[i].salary = 100;

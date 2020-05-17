@@ -1,339 +1,179 @@
-FUNCTION main :
-DEC v8 32
-DEC v9 32
-DEC v10 32
-DEC v11 32
-t1 := #0
-v1 := t1
-t2 := #0
-v2 := t2
-READ t3
-v7 := t3
-LABEL label1 :
+FUNCTION mod :
+PARAM v2
+PARAM v1
+t1 := v1
+t5 := v1
+t6 := v2
+t3 := t5 / t6
 t4 := v2
-t5 := v7
-IF t4 < t5 GOTO label2
+t2 := t3 * t4
+v3 := t1 - t2
+v4 := v3
+t7 := v3
+RETURN t7
+FUNCTION power :
+PARAM v6
+PARAM v5
+t10 := #1
+t11 := v6
+t8 := t10 + t11
+t9 := v6
+v7 := t8 - t9
+LABEL label1 :
+t12 := v6
+t22 := v7
+t23 := v7
+t20 := t22 - t23
+t21 := #90
+t18 := t20 + t21
+t19 := #89
+t16 := t18 - t19
+t17 := #1
+t14 := t16 + t17
+t15 := #2
+t13 := t14 - t15
+IF t12 > t13 GOTO label2
 GOTO label3
 LABEL label2 :
-t7 := #1
-t6 := #0 - t7
-t8 := v8
-t9 := v2
-t10 := t9 * #4
-t11 := &t8 + t10
-*t11 := t6
-t13 := v2
-t14 := #1
-t12 := t13 + t14
-v2 := t12
+t25 := v7
+t26 := v5
+t24 := t25 * t26
+v7 := t24
+t34 := #2
+t35 := #1
+t32 := t34 * t35
+t33 := v6
+t30 := t32 * t33
+t36 := #1
+t37 := v6
+t31 := t36 * t37
+t28 := t30 - t31
+t29 := #1
+t27 := t28 - t29
+v6 := t27
 GOTO label1
 LABEL label3 :
-t15 := #0
-v2 := t15
-t16 := #1
-v6 := t16
+t38 := v7
+RETURN t38
+FUNCTION getNumDigits :
+PARAM v8
+v9 := #0
+t39 := v8
+t40 := #0
+IF t39 < t40 GOTO label4
+GOTO label5
 LABEL label4 :
-t17 := v6
-t18 := #1
-IF t17 == t18 GOTO label5
-GOTO label6
+t42 := #1
+t41 := #0 - t42
+RETURN t41
 LABEL label5 :
-t19 := v2
-t20 := v7
-IF t19 == t20 GOTO label7
+LABEL label6 :
+t43 := v8
+t44 := #0
+IF t43 > t44 GOTO label7
 GOTO label8
 LABEL label7 :
-t21 := #1
-v3 := t21
-t22 := #0
-v4 := t22
+t46 := v8
+t47 := #10
+t45 := t46 / t47
+v8 := t45
+t49 := v9
+t50 := #2
+t48 := t49 + t50
+v9 := t48
+t52 := v9
+t53 := #2
+t51 := t52 + t53
+v9 := t51
+t55 := v9
+t56 := #3
+t54 := t55 - t56
+v9 := t54
+GOTO label6
+LABEL label8 :
+t57 := v9
+RETURN t57
+FUNCTION isNarcissistic :
+PARAM v10
+t61 := #1
+t62 := v10
+t59 := t61 + t62
+t60 := #1
+t58 := t59 - t60
+ARG t58
+v11 := CALL getNumDigits
+v12 := #0
+v13 := v10
+LABEL label9 :
+t63 := v13
+t64 := #0
+IF t63 > t64 GOTO label10
+GOTO label11
 LABEL label10 :
-t23 := v4
-t24 := v7
-IF t23 < t24 GOTO label11
-GOTO label12
+t66 := v13
+t67 := #10
+ARG t66
+ARG t67
+t65 := CALL mod
+v14 := t65
+t71 := v13
+t72 := v14
+t69 := t71 - t72
+t70 := #10
+t68 := t69 / t70
+v13 := t68
+t74 := v12
+t76 := v14
+t77 := v11
+ARG t76
+ARG t77
+t75 := CALL power
+t73 := t74 + t75
+v12 := t73
+GOTO label9
 LABEL label11 :
-t25 := #1
-t26 := v9
-t27 := v4
-t28 := t27 * #4
-t29 := &t26 + t28
-*t29 := t25
-t30 := #1
-t31 := v10
-t32 := v4
-t33 := t32 * #4
-t34 := &t31 + t33
-*t34 := t30
-t35 := #1
-t36 := v11
-t37 := v4
-t38 := t37 * #4
-t39 := &t36 + t38
-*t39 := t35
-t41 := v4
-t42 := #1
-t40 := t41 + t42
-v4 := t40
-GOTO label10
+t78 := v12
+t79 := v10
+IF t78 == t79 GOTO label12
+GOTO label13
 LABEL label12 :
-t43 := #0
-v4 := t43
+t80 := #1
+RETURN t80
+GOTO label14
 LABEL label13 :
-t44 := v4
-t45 := v7
-IF t44 < t45 GOTO label14
-GOTO label15
+t81 := #0
+RETURN t81
 LABEL label14 :
-t48 := v9
-t50 := v8
-t51 := v4
-t52 := t51 * #4
-t53 := &t50 + t52
-t49 := *t53
-t54 := t49 * #4
-t55 := &t48 + t54
-t46 := *t55
-t47 := #1
-IF t46 != t47 GOTO label16
-GOTO label20
-LABEL label20 :
-t58 := v10
-t60 := v8
-t61 := v4
-t62 := t61 * #4
-t63 := &t60 + t62
-t59 := *t63
-t64 := t59 * #4
-t65 := &t58 + t64
-t56 := *t65
-t57 := #1
-IF t56 != t57 GOTO label16
-GOTO label19
-LABEL label19 :
-t68 := v11
-t70 := v8
-t71 := v4
-t72 := t71 * #4
-t73 := &t70 + t72
-t69 := *t73
-t74 := t69 * #4
-t75 := &t68 + t74
-t66 := *t75
-t67 := #1
-IF t66 != t67 GOTO label16
+FUNCTION main :
+v15 := #0
+v16 := #300
+LABEL label15 :
+t82 := v16
+t83 := #500
+IF t82 < t83 GOTO label16
 GOTO label17
 LABEL label16 :
-t76 := #0
-v3 := t76
-t77 := v7
-v4 := t77
-GOTO label18
-LABEL label17 :
-t78 := #0
-t79 := v9
-t81 := v8
-t82 := v4
-t83 := t82 * #4
-t84 := &t81 + t83
-t80 := *t84
-t85 := t80 * #4
-t86 := &t79 + t85
-*t86 := t78
-t87 := #0
-v5 := t87
-LABEL label21 :
-t88 := v5
-t90 := v7
-t91 := #1
-t89 := t90 - t91
-IF t88 < t89 GOTO label22
-GOTO label23
-LABEL label22 :
-t93 := v10
-t95 := v5
-t96 := #1
-t94 := t95 + t96
-t97 := t94 * #4
-t98 := &t93 + t97
-t92 := *t98
-t99 := v10
-t100 := v5
-t101 := t100 * #4
-t102 := &t99 + t101
-*t102 := t92
-t104 := v5
-t105 := #1
-t103 := t104 + t105
-v5 := t103
-GOTO label21
-LABEL label23 :
-t106 := #1
-t107 := v10
-t109 := v7
-t110 := #1
-t108 := t109 - t110
-t111 := t108 * #4
-t112 := &t107 + t111
-*t112 := t106
-t115 := v8
-t116 := v4
-t117 := t116 * #4
-t118 := &t115 + t117
-t113 := *t118
-t114 := #0
-IF t113 != t114 GOTO label24
-GOTO label25
-t119 := #0
-t120 := v10
-t124 := v8
-t125 := v4
-t126 := t125 * #4
-t127 := &t124 + t126
-t122 := *t127
-t123 := #1
-t121 := t122 - t123
-t128 := t121 * #4
-t129 := &t120 + t128
-*t129 := t119
-t131 := v7
-t132 := #1
-t130 := t131 - t132
-v5 := t130
-LABEL label26 :
-t133 := v5
-t134 := #0
-IF t133 > t134 GOTO label27
-GOTO label28
-LABEL label27 :
-t136 := v11
-t138 := v5
-t139 := #1
-t137 := t138 - t139
-t140 := t137 * #4
-t141 := &t136 + t140
-t135 := *t141
-t142 := v11
-t143 := v5
-t144 := t143 * #4
-t145 := &t142 + t144
-*t145 := t135
-t147 := v5
-t148 := #1
-t146 := t147 - t148
-v5 := t146
-GOTO label26
-LABEL label28 :
-t149 := #1
-t150 := v11
-t151 := #0
-t152 := t151 * #4
-t153 := &t150 + t152
-*t153 := t149
-t156 := v8
-t157 := v4
-t158 := t157 * #4
-t159 := &t156 + t158
-t154 := *t159
-t160 := v7
-t161 := #1
-t155 := t160 - t161
-IF t154 != t155 GOTO label29
-GOTO label30
-t162 := #0
-t163 := v11
-t167 := v8
-t168 := v4
-t169 := t168 * #4
-t170 := &t167 + t169
-t165 := *t170
-t166 := #1
-t164 := t165 + t166
-t171 := t164 * #4
-t172 := &t163 + t171
-*t172 := t162
-t174 := v4
-t175 := #1
-t173 := t174 + t175
-v4 := t173
+t86 := v16
+ARG t86
+t84 := CALL isNarcissistic
+t85 := #1
+IF t84 == t85 GOTO label18
+GOTO label19
 LABEL label18 :
-GOTO label13
-LABEL label15 :
-t176 := v3
-t177 := #1
-IF t176 == t177 GOTO label31
-GOTO label32
-t179 := v1
-t180 := #1
-t178 := t179 + t180
-v1 := t178
-t182 := v2
-t183 := #1
-t181 := t182 - t183
-v2 := t181
-GOTO label9
-LABEL label8 :
-LABEL label33 :
-t184 := v2
-t185 := #0
-IF t184 >= t185 GOTO label36
-GOTO label35
-LABEL label36 :
-t188 := v8
-t189 := v2
-t190 := t189 * #4
-t191 := &t188 + t190
-t186 := *t191
-t192 := v7
-t193 := #1
-t187 := t192 - t193
-IF t186 >= t187 GOTO label34
-GOTO label35
-LABEL label34 :
-t195 := #1
-t194 := #0 - t195
-t196 := v8
-t197 := v2
-t198 := t197 * #4
-t199 := &t196 + t198
-*t199 := t194
-t201 := v2
-t202 := #1
-t200 := t201 - t202
-v2 := t200
-GOTO label33
-LABEL label35 :
-t203 := v2
-t205 := #1
-t204 := #0 - t205
-IF t203 == t204 GOTO label37
-GOTO label38
-LABEL label37 :
-t206 := #0
-v6 := t206
-GOTO label39
-LABEL label38 :
-t210 := v8
-t211 := v2
-t212 := t211 * #4
-t213 := &t210 + t212
-t208 := *t213
-t209 := #1
-t207 := t208 + t209
-t214 := v8
-t215 := v2
-t216 := t215 * #4
-t217 := &t214 + t216
-*t217 := t207
-t219 := v2
-t220 := #1
-t218 := t219 + t220
-v2 := t218
-LABEL label39 :
-LABEL label9 :
-GOTO label4
-LABEL label6 :
-t221 := v1
-WRITE t221
-t222 := #0
-RETURN t222
+t87 := v16
+WRITE t87
+t89 := v15
+t90 := #1
+t88 := t89 + t90
+v15 := t88
+LABEL label19 :
+t92 := v16
+t93 := #1
+t91 := t92 + t93
+v16 := t91
+GOTO label15
+LABEL label17 :
+t94 := v15
+WRITE t94
+t95 := v15
+RETURN t95
