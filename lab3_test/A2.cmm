@@ -1,26 +1,51 @@
-int main() {
-	int dollar, rmb;
-	dollar = read();
-	rmb = read();
-	if (dollar > 100) {
-		if (rmb < 50) {
-			write(rmb + dollar);
-		} else {
-		write(rmb - dollar);
+int main(){
+	int month, year;
+	year = read();
+	month=read();
+	if(year == (year / 100 * 100)){
+		if(year == (year / 400 * 400)){
+			if(month == 2){
+			write(29);
 		}
-	} else if (dollar == 100) {
-		if (rmb < 100) {
-			write(rmb);
-		} else {
-			write(rmb - 100);
+		else if(month == (month / 2 * 2)){
+			write(30);
+		}
+		else
+			write(31);
+		}else {
+			if(month == 2){
+				write(28);
 			}
-	} else if (dollar < 100) {
-		if (rmb + dollar > 100){
-			write(dollar + 100);
-		} else {
-			write(100);
+			else if(month == (month / 2 * 2)){
+				write(30);
+			}
+			else {
+				write(31);
+			}
 		}
 	}
-	write(dollar + rmb);
+	else if(year == (year/4 * 4)){
+		if(month == 2){
+			write(29);
+		}
+		else if(month == (month / 2 * 2)){
+			write(30);
+ 		}
+		else {
+			write(31);
+		}
+	}
+	else{
+		if(month == 2){
+			write(28);
+		}
+		else if(month == (month / 2 * 2)){
+ 			write(30);
+ 		}
+		else {
+ 			write(31);
+ 		}
+	}
 	return 0;
 }
+

@@ -134,7 +134,7 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values,AllType*types)
         myFree(tp);
         myFree(t1);
         return code1;
-    }else if(node->type==42){
+    }else if(node->type==42){ // Exp PLUS Exp
         if(place){
             char*t1=newT();
             char*t2=newT();
@@ -154,7 +154,7 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values,AllType*types)
         }else{
             return NULL;
         }
-    }else if(node->type==43){
+    }else if(node->type==43){ // Exp MINUS Exp
         if(place){
             char*t1=newT();
             char*t2=newT();
@@ -657,6 +657,22 @@ Sentence*translateExtDef(struct TreeNode*node){
         strcat(code1,"FUNCTION ");
         strcat(code1,funcName);
         strcat(code1," :");
+
+        Function*func=searchList(functionTable,funcName,equalByNameFunc);
+
+        LinkedList*paramNode=func->paraList->next;
+        while(paramNode){
+            Sentence*code12=createSentence();
+            strcat(code12->str,"PARAM v");
+            char*varName=((Variable*)(paramNode->data))->name;
+            IdVariable*idvar=searchList(translateTable,varName,equalByNameIdVar);
+            char num[10];
+            itoa(idvar->id,num,10);
+            strcat(code12->str,num);
+            code1=codeAdd(code1,code12);
+            paramNode=paramNode->next;
+        }
+
         Sentence*code2=translateCompst(node->subnode[2]);
         code1=codeAdd(code1,code2);
         return code1;

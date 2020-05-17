@@ -1,54 +1,56 @@
-FUNCTION swap :
-v3 := v1
-t1 := v2
-v1 := t1
-t2 := v3
-v2 := t2
-t3 := v1
-WRITE t3
+FUNCTION fact :
+PARAM v1
+v2 := #1
+v3 := #1
+LABEL label1 :
+t1 := v3
+t2 := v1
+IF t1 <= t2 GOTO label2
+GOTO label3
+LABEL label2 :
 t4 := v2
-WRITE t4
-t5 := v1
-RETURN t5
+t5 := v3
+t3 := t4 * t5
+v2 := t3
+t7 := v3
+t8 := #1
+t6 := t7 + t8
+v3 := t6
+GOTO label1
+LABEL label3 :
+t9 := v2
+RETURN t9
 FUNCTION main :
 DEC v4 20
 v5 := #0
-LABEL label1 :
-t6 := v5
-t7 := #5
-IF t6 < t7 GOTO label2
-GOTO label3
-LABEL label2 :
-READ t8
-t9 := v4
+v6 := #5
+LABEL label4 :
 t10 := v5
-t11 := t10 * #4
-t12 := &t9 + t11
-*t12 := t8
+t11 := v6
+IF t10 < t11 GOTO label5
+GOTO label6
+LABEL label5 :
 t13 := v5
-t14 := #0
-IF t13 > t14 GOTO label4
-GOTO label5
-t16 := v4
-t18 := v5
-t19 := #1
-t17 := t18 - t19
-t20 := t17 * #4
-t21 := &t16 + t20
-t15 := *t21
-t23 := v4
-t24 := v5
-t25 := t24 * #4
-t26 := &t23 + t25
-t22 := *t26
-ARG t15
-ARG t22
-CALL swap
-t28 := v5
-t29 := #1
-t27 := t28 + t29
-v5 := t27
-GOTO label1
-LABEL label3 :
-t30 := #0
-RETURN t30
+t14 := #2
+t12 := t13 + t14
+t15 := v4
+t16 := v5
+t17 := t16 * #4
+t18 := &t15 + t17
+*t18 := t12
+t21 := v4
+t22 := v5
+t23 := t22 * #4
+t24 := &t21 + t23
+t20 := *t24
+ARG t20
+t19 := CALL fact
+WRITE t19
+t26 := v5
+t27 := #1
+t25 := t26 + t27
+v5 := t25
+GOTO label4
+LABEL label6 :
+t28 := #0
+RETURN t28

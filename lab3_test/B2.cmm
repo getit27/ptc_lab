@@ -1,66 +1,39 @@
-int countSort(){
-	int x[5], count[10], sorted[5], i;
-	i = 0;
-	while (i < 10) {
-		count[i] = 0;
-		i = i + 1;
+int gcd1(int a, int b)
+{
+	int result;
+	int temp;
+	temp = a - a / b * b;
+	while (temp != 0) {
+		a = b;
+		b = temp;
+		temp = a - a / b * b;
 	}
-	i = 0;
-	while (i < 5) {
-		x[i] = read();
-		count[x[i]] = count[x[i]] + 1;
-		i = i + 1;
-	}
-	i = 1;
-	while ( i < 10) {
-		count[i] = count[i] + count[i-1];
-		i = i + 1;
-	}
-	i = 0;
-	while ( i < 5 ) {
-		sorted[count[x[i]]-1] = x[i];
-		count[x[i]] = count[x[i]] - 1;
-		i = i + 1;
-	}
-	i = 0;
-	while (i < 5) {
-		write(sorted[i]);
-		i = i + 1;
-	}
-	return 0;
+	result = b;
+	return result;
 }
-
-int bubbleSort(){
-	int a[5], b, c, tem;
-	b = 0;
-	while (b < 5) {
-		a[b] = read();
-		b = b + 1;
+int gcd2(int x, int y)
+{
+	int remainder = 0;
+	if(x > y){
+		remainder = x - x / y * y;
+	if(remainder == 0)
+		return y;
+	else
+		return gcd2(y, remainder);
 	}
-	c = 1;
-	while (c == 1) {
-		c = 0;
-		b = 1;
-		while (b < 5) {
-			if (a[b] < a[b-1]) {
-				c = 1;
-				tem = a[b-1];
-				a[b-1] = a[b];
-				a[b] = tem;
-			}
-			b = b + 1;
-		}
+	else {
+		remainder = y - y / x * x;
+		if(remainder == 0)
+		return x;
+	else
+		return gcd2(x, remainder);
 	}
-	b = 0;
-	while (b < 5) {
-		write(a[b]);
-		b = b + 1;
-	}
-	return 0;
 }
-
-int main(){
-	countSort();
-	bubbleSort();
+int main()
+{
+	int m = read();
+	int n = read();
+	write(gcd1(m,n));
+	write(gcd2(m,n));
 	return 0;
 }
