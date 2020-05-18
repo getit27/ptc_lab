@@ -93,7 +93,7 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values,AllType*types,
             code1=createSentence();
             strcat(code1->str,"v");
             strcat(code1->str,num);
-            if(!param)
+            if(!param||param->type->type<4)
                 strcat(code1->str," := ");
             else
                 strcat(code1->str," := *");
@@ -108,7 +108,7 @@ Sentence*translateExp(struct TreeNode*node,char*place,char*values,AllType*types,
         if(address){
             code3=createSentence();
             strcat(code3->str,address);
-            if(!param)
+            if(!param||param->type->type<4)
                 strcat(code3->str," := &v");
             else
                 strcat(code3->str," := v");
